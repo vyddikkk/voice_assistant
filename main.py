@@ -1,17 +1,9 @@
 import os
-import time
-from datetime import datetime
 from fuzzywuzzy import fuzz
 import pyowm
 import pyttsx3
 import speech_recognition as sr
-import random
-
-'''
-каждый таск нужно открывать вторым потоком, не мешая веронике слушать задания на основном потоке.
-тогда будут работать команды закрытия приложений.
-'''
-
+import comands
 
 voice = pyttsx3.init()
 
@@ -82,84 +74,20 @@ def recognize_cmd(cmd):
 
 def execute_cmd(cmd):
 	if cmd == 'waud':
-		waud()
+		comands.waud()
 	elif cmd == 'hau':
-		hau()
+		comands.hau()
 	elif cmd == 'ctime':
-		ctime()
+		comands.ctime()
 	elif cmd == 'weather':
-		get_weather(observation)
+		comands.get_weather(observation)
 	elif cmd == 'about me':
-		about_me()
+		comands.about_me()
 	elif cmd == 'hello':
-		speak_hello()
+		comands.speak_hello()
 	elif cmd == 'goodbye':
-		speak_goodbye()
+		comands.speak_goodbye()
 		quit()
-
-
-def speak(text):
-	voice.say(text)
-	voice.runAndWait()
-
-
-def ctime():
-	now = datetime.now()
-	current_time = now.strftime("%H:%M:%S")
-	speak(f'сейчас: {current_time}')
-
-
-def hau():
-	answer = random.choice(hau_answer)
-	print("[Log] Ответ сформулирован: " + answer)
-	speak(answer)
-
-
-def waud():
-	answer = random.choice(waud_answer)
-	print("[Log] Ответ сформулирован: " + answer)
-	speak(answer)
-
-
-def speak_hello():
-	answer = random.choice(hello_answer)
-	print("[Log] Ответ сформулирован: " + answer)
-	speak(answer)
-
-
-def speak_goodbye():
-	answer = random.choice(goodbye_answer)
-	print("[Log] Ответ сформулирован: " + answer)
-	speak(answer)
-
-
-def about_me():
-	speak('я - Вероника. бета версия голосового ассистента. сейчас я умею не многое, но благодоря опытной команде разработчиков быстро пополняюсь новыми функциями.\
-			 моя задача - как то облегчить жизнь простому пользователю. мои функции на текущий момент: могу отрыть блокнот, сказать текущие \
-			 погодные условия и время, мне можно задать несколько вопросов о моем текущем состоянии (как дела, что делаю) \
-			 и я вам с радостью на них отвечу')
-
-
-def get_weather(observations):
-	info_weather = observations.weather
-	temperature = round(info_weather.temperature('celsius')['temp'])
-	if temperature % 10 == 1:
-		ending = 'градус'
-	elif temperature % 10 == 2 or 3 or 4:
-		ending = "градуса"
-	else:
-		ending = "градусов"
-
-	answer = "сейчас: " + str(temperature) + " " + ending + " по цельсию. облачность - " + str(
-		info_weather.clouds) + ' процентов.'
-	speak(answer)
-	answer = ''
-
-	if info_weather.detailed_status == "clear sky":
-		answer = " небо чистое"
-	elif info_weather.detailed_status == "cloud":
-		answer = " облачно"
-	speak(answer)
 
 
 if __name__ == '__main__':
