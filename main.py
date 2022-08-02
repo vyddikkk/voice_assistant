@@ -2,11 +2,12 @@ from fuzzywuzzy import fuzz
 import pyowm
 import pyttsx3
 import speech_recognition as sr
+from config import OWMTOKEN
 import comands
 
 voice = pyttsx3.init()
 
-owm = pyowm.OWM('ba2df49bc414f5681ed5ac043f1454f3')
+owm = pyowm.OWM(OWMTOKEN)
 mgr = owm.weather_manager()
 
 observation = mgr.weather_at_place('Kherson,UA')
