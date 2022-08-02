@@ -1,4 +1,3 @@
-import os
 from fuzzywuzzy import fuzz
 import pyowm
 import pyttsx3
