@@ -75,7 +75,7 @@ def open_notepad(program):
 
 
 def close_notepad():
-	os.system(r'TASKKILL /IM notepad.exe')
+	os.system(r'TASKKILL /IM notepad.exe > nul')
 	speak("блокнот закрыт")
 
 
