@@ -1,6 +1,8 @@
+import os
 import main
 from datetime import datetime
 import random
+import subprocess
 
 
 def speak(text):
@@ -65,3 +67,22 @@ def get_weather(observations):
 	elif info_weather.detailed_status == "cloud":
 		answer = " облачно"
 	speak(answer)
+
+
+def open_notepad(program):
+	speak("открываю блокнот")
+	process = subprocess.Popen(program)
+
+
+def close_notepad():
+	os.system(r'TASKKILL /IM notepad.exe')
+	speak("блокнот закрыт")
+
+
+def open_browser():
+	pass
+
+
+def close_browser():
+	pass
+
